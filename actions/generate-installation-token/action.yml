@@ -39,7 +39,7 @@ runs:
     - id: gen-app-token
       run: node generate-token.mjs
     - id: encrypt-app-token
-      uses: ./.github/workflows/encrypt-secret
+      uses: ./actions/encrypt-secret
       with:
         SECRET_PASSING_KEY: ${{ secrets.SECRET_PASSING_KEY }}
         VALUE: ${{ steps.gen-app-token.outputs.APP_TOKEN }}
