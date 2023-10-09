@@ -41,5 +41,4 @@ runs:
     - id: encrypt-app-token
       uses: ./actions/encrypt-secret
       with:
-        SECRET_PASSING_KEY: ${{ secrets.SECRET_PASSING_KEY }}
         VALUE: ${{ steps.gen-app-token.outputs.APP_TOKEN }}
