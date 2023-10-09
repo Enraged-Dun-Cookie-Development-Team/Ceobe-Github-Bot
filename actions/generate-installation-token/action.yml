@@ -1,14 +1,5 @@
 name: 生成安装访问令牌
 
-
-inputs:
-  APP_ID:
-    type: string
-    required: true
-  APP_PRIVATE_KEY:
-    type: string
-    required: true
-
 outputs:
   APP_TOKEN:
     value: ${{ steps.gen-app-token.outputs.APP_TOKEN }}
