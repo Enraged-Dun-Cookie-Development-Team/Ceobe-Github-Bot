@@ -20,3 +20,4 @@ runs:
       run: |
         result=$(gpg --symmetric --batch --passphrase "${{ secrets.SECRET_PASSING_KEY }}" --output - <(echo "${{ inputs.VALUE }}") | base64 -w0)
         echo "ENCRYPTED_VALUE=$result" >> $GITHUB_OUTPUT
+      shell: bash
