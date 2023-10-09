@@ -14,6 +14,7 @@ runs:
       with:
         node-version: 18 # node版本
     - run: npm i @octokit/rest @octokit/auth-app @actions/core
+      shell: bash
     - env:
         SCRIPT_CONTENT: |
           import * as core from '@actions/core';
@@ -27,8 +28,10 @@ runs:
           core.setSecret(token);
           core.setOutput('APP_TOKEN', token);
       run: echo "$SCRIPT_CONTENT" >> generate-token.mjs
+      shell: bash
     - id: gen-app-token
       run: node generate-token.mjs
+      shell: bash
     - id: encrypt-app-token
       uses: ./actions/encrypt-secret
       with:
