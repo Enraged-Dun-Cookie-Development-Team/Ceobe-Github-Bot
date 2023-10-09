@@ -12,14 +12,14 @@ inputs:
 
 outputs:
   DECRYPTED_VALUE:
-    value: ${{ steps.encrypt-app-token.outputs.DECRYPTED_VALUE }}
+    value: ${{ steps.decrypt-value.outputs.DECRYPTED_VALUE }}
 
 
 runs:
   using: composite
   steps:
     - name: decrypt
-      id: decrypt-app-token
+      id: decrypt-value
       run: |
         result=$(gpg --decrypt --quiet --batch --passphrase "${{ inputs.SECRET_PASSING_KEY }}" --output - <(echo "${{ inputs.VALUE }}" | base64 --decode))
         echo "::add-mask::$result"
