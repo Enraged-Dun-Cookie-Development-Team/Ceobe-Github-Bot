@@ -1,5 +1,16 @@
 name: 生成安装访问令牌
 
+inputs:
+  APP_ID:
+    type: string
+    required: true
+  APP_PRIVATE_KEY:
+    type: string
+    required: true
+  SECRET_PASSING_KEY:
+    type: string
+    required: true
+
 outputs:
   APP_TOKEN:
     value: ${{ steps.gen-app-token.outputs.APP_TOKEN }}
@@ -21,7 +32,7 @@ runs:
           import { Octokit } from "@octokit/rest";
           import { createAppAuth } from "@octokit/auth-app";
           
-          const appOctokit = new Octokit({ authStrategy: createAppAuth, auth: { appId: '${{ secrets.CEOBE_GITHUB_APP_ID }}', privateKey: `${{ secrets.CEOBE_GITHUB_APP_PRIVATE_KEY }}` } });
+          const appOctokit = new Octokit({ authStrategy: createAppAuth, auth: { appId: '${{ inputs.APP_ID }}', privateKey: `${{ inputs.APP_PRIVATE_KEY }}` } });
           const installation = await appOctokit.rest.apps.getOrgInstallation({ org: '${{ github.repository_owner }}' });
           const result = await appOctokit.rest.apps.createInstallationAccessToken({ installation_id: installation.data.id });
           const token = result.data.token;
@@ -36,3 +47,4 @@ runs:
       uses: ./actions/encrypt-secret
       with:
         VALUE: ${{ steps.gen-app-token.outputs.APP_TOKEN }}
+        SECRET_PASSING_KEY: ${{ inputs.SECRET_PASSING_KEY }}
