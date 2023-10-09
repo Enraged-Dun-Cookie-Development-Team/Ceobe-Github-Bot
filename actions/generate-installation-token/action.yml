@@ -44,7 +44,7 @@ runs:
       run: node generate-token.mjs
       shell: bash
     - id: encrypt-app-token
-      uses: ./actions/encrypt-secret
+      uses: Enraged-Dun-Cookie-Development-Team/Ceobe-Github-Bot/actions/encrypt-secret@master
       with:
         VALUE: ${{ steps.gen-app-token.outputs.APP_TOKEN }}
         SECRET_PASSING_KEY: ${{ inputs.SECRET_PASSING_KEY }}
