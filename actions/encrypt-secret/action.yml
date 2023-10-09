@@ -12,14 +12,14 @@ inputs:
 
 outputs:
   ENCRYPTED_VALUE:
-    value: ${{ steps.encrypt-app-token.outputs.ENCRYPTED_VALUE }}
+    value: ${{ steps.encrypt-value.outputs.ENCRYPTED_VALUE }}
 
 
 runs:
   using: composite
   steps:
     - name: encrypt
-      id: encrypt-app-token
+      id: encrypt-value
       run: |
         result=$(gpg --symmetric --batch --passphrase "${{ inputs.SECRET_PASSING_KEY }}" --output - <(echo "${{ inputs.VALUE }}") | base64 -w0)
         echo "ENCRYPTED_VALUE=$result" >> $GITHUB_OUTPUT
