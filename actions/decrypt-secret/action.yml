@@ -1,0 +1,23 @@
+name: decrypt secret
+description: 解密使用encrypt secret加密的值
+
+
+inputs:
+  VALUE:
+    type: string
+    required: true
+
+outputs:
+  DECRYPTED_VALUE:
+    value: ${{ steps.encrypt-app-token.outputs.DECRYPTED_VALUE }}
+
+
+runs:
+  using: composite
+  steps:
+    - name: decrypt
+      id: decrypt-app-token
+      run: |
+        result=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.SECRET_PASSING_KEY }}" --output - <(echo "${{ inputs.VALUE }}" | base64 --decode))
+        echo "::add-mask::$result"
+        echo "DECRYPTED_VALUE=$result" >> $GITHUB_OUTPUT
