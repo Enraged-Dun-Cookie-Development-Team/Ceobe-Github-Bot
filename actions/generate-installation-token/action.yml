@@ -15,7 +15,7 @@ outputs:
   APP_TOKEN:
     value: ${{ steps.gen-app-token.outputs.APP_TOKEN }}
   ENCRYPTED_TOKEN:
-    value: ${{ steps.gen-app-token.outputs.ENCRYPTED_VALUE }}
+    value: ${{ steps.encrypt-app-token.outputs.ENCRYPTED_VALUE }}
 
 
 runs:
