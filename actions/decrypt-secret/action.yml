@@ -21,3 +21,4 @@ runs:
         result=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.SECRET_PASSING_KEY }}" --output - <(echo "${{ inputs.VALUE }}" | base64 --decode))
         echo "::add-mask::$result"
         echo "DECRYPTED_VALUE=$result" >> $GITHUB_OUTPUT
+      shell: bash
