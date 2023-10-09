@@ -6,6 +6,9 @@ inputs:
   VALUE:
     type: string
     required: true
+  SECRET_PASSING_KEY:
+    type: string
+    required: true
 
 outputs:
   DECRYPTED_VALUE:
@@ -18,7 +21,7 @@ runs:
     - name: decrypt
       id: decrypt-app-token
       run: |
-        result=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.SECRET_PASSING_KEY }}" --output - <(echo "${{ inputs.VALUE }}" | base64 --decode))
+        result=$(gpg --decrypt --quiet --batch --passphrase "${{ inputs.SECRET_PASSING_KEY }}" --output - <(echo "${{ inputs.VALUE }}" | base64 --decode))
         echo "::add-mask::$result"
         echo "DECRYPTED_VALUE=$result" >> $GITHUB_OUTPUT
       shell: bash
